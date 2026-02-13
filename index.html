@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To My Eternal Love</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarina&family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cottage: {
+                teal: '#c4f0e8',
+                peach: '#ffc1b1',
+                cream: '#f2ebd7',
+                green: '#9bc99e',
+                wood: '#b6916b',
+              },
+            },
+            fontFamily: {
+              header: ['Sarina', 'cursive'],
+              body: ['Sour Gummy', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #f2ebd7;
+        overflow-x: hidden;
+      }
+      .ascii-heart {
+        font-family: monospace;
+        white-space: pre;
+        line-height: 1.2;
+        color: #ffc1b1;
+        text-shadow: 0 0 15px rgba(255, 193, 177, 0.8);
+      }
+      .heart-pulse {
+        animation: heartPulse 2s ease-in-out infinite;
+      }
+      .heart-pop {
+        animation: heartPopIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+      @keyframes heartPulse {
+        0%, 100% { transform: scale(1); filter: brightness(1); }
+        50% { transform: scale(1.05); filter: brightness(1.2); }
+      }
+      @keyframes heartPopIn {
+        from { transform: scale(0); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      .ghibli-cloud {
+        animation: drift 60s linear infinite;
+      }
+      @keyframes drift {
+        from { transform: translateX(-100vw); }
+        to { transform: translateX(100vw); }
+      }
+      .floating-gift {
+        animation: floatGift 3s ease-in-out infinite;
+      }
+      @keyframes floatGift {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(5deg); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
