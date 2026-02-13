@@ -132,7 +132,7 @@ const App: React.FC = () => {
                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-cottage-green -translate-x-1 translate-y-1"></div>
                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-cottage-green translate-x-1 translate-y-1"></div>
 
-               <p className="text-xl md:text-2xl leading-relaxed text-center italic">
+               <p className="text-xl md:text-2xl leading-relaxed text-center italic font-body">
                 {FINAL_MESSAGE}
                </p>
                
@@ -140,7 +140,7 @@ const App: React.FC = () => {
                   <span className="text-cottage-wood">Forever yours,</span>
                </div>
                <div className="mt-2 text-center text-3xl font-header text-cottage-peach">
-                  Vince
+                  Your One and Only
                </div>
             </div>
 
