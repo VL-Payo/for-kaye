@@ -1,13 +1,17 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To My Eternal Love | A Valentine's Gift</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Eternal Love | Kaye</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarina&family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind for layout -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -30,63 +34,292 @@
         },
       };
     </script>
+
     <style>
-      body {
-        background-color: #f2ebd7;
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
-      }
-      .ascii-heart {
-        font-family: monospace;
-        white-space: pre;
-        line-height: 1.2;
-        color: #ffc1b1;
-        text-shadow: 0 0 15px rgba(255, 193, 177, 0.8);
-      }
-      .heart-pulse {
-        animation: heartPulse 2s ease-in-out infinite;
-      }
-      .heart-pop {
-        animation: heartPopIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-      }
-      @keyframes heartPulse {
-        0%, 100% { transform: scale(1); filter: brightness(1); }
-        50% { transform: scale(1.05); filter: brightness(1.2); }
-      }
-      @keyframes heartPopIn {
-        from { transform: scale(0); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-      }
-      .ghibli-cloud {
-        animation: drift 60s linear infinite;
-      }
-      @keyframes drift {
-        from { transform: translateX(-100vw); }
-        to { transform: translateX(100vw); }
-      }
-      .floating-gift {
-        animation: floatGift 3s ease-in-out infinite;
-      }
-      @keyframes floatGift {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(5deg); }
-      }
+        :root {
+            --peach: #ffc1b1;
+            --cream: #f2ebd7;
+            --wood: #b6916b;
+            --green: #9bc99e;
+        }
+
+        body {
+            background-color: var(--cream);
+            font-family: 'Sour Gummy', sans-serif;
+            color: #5a4632;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes drift {
+            from { transform: translateX(-150%); }
+            to { transform: translateX(150vw); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.03); filter: brightness(1.1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ghibli-cloud {
+            position: absolute;
+            opacity: 0.4;
+            animation: drift 60s linear infinite;
+            pointer-events: none;
+        }
+
+        .soot-sprite {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: #333;
+            border-radius: 50%;
+            animation: bounce 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .soot-sprite::before, .soot-sprite::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            top: 8px;
+        }
+
+        .soot-sprite::before { left: 6px; }
+        .soot-sprite::after { right: 6px; }
+
+        .ascii-heart {
+            font-family: monospace;
+            white-space: pre;
+            line-height: 1.2;
+            color: var(--peach);
+            text-shadow: 0 0 15px rgba(255, 193, 177, 0.6);
+            display: inline-block;
+            animation: heartPulse 2s ease-in-out infinite;
+        }
+
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+
+        .flower {
+            position: absolute;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Hide sections initially */
+        .step-content { display: none; }
+        .step-active { display: block; }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "vite": "https://esm.sh/vite@^7.3.1",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4"
-  }
-}
-</script>
 </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
-  </body>
+<body class="min-h-screen relative flex items-center justify-center p-4">
+
+    <!-- Drifting Clouds -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <svg class="ghibli-cloud top-10" style="animation-delay: 0s;" width="200" height="100" viewBox="0 0 200 100" fill="white"><circle cx="40" cy="60" r="30" /><circle cx="80" cy="50" r="40" /><circle cx="130" cy="60" r="35" /><circle cx="160" cy="70" r="25" /></svg>
+        <svg class="ghibli-cloud top-1/3" style="animation-delay: -30s;" width="150" height="80" viewBox="0 0 200 100" fill="white"><circle cx="40" cy="60" r="25" /><circle cx="90" cy="50" r="45" /><circle cx="150" cy="65" r="30" /></svg>
+        
+        <!-- Soot Sprites -->
+        <div class="soot-sprite top-[15%] left-[10%]" style="animation-delay: 0s;"></div>
+        <div class="soot-sprite top-[75%] left-[85%]" style="animation-delay: 1s;"></div>
+        <div class="soot-sprite top-[85%] left-[5%]" style="animation-delay: 2.5s;"></div>
+
+        <!-- Flowers -->
+        <svg class="flower top-[5%] left-[80%] animate-[spin_10s_linear_infinite]" width="30" height="30" fill="#ffc1b1"><path d="M12 2L13.5 8.5L20 10L14.5 13L16 20L11 16L6 20L7.5 13L2 10L8.5 8.5L12 2Z" /></svg>
+        <svg class="flower top-[40%] left-[90%] animate-[spin_15s_linear_infinite]" width="30" height="30" fill="#9bc99e"><path d="M12 2L13.5 8.5L20 10L14.5 13L16 20L11 16L6 20L7.5 13L2 10L8.5 8.5L12 2Z" /></svg>
+    </div>
+
+    <!-- Main Container -->
+    <main id="app-container" class="max-w-2xl w-full bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-4 border-[#ffc1b1] relative z-10 fade-in">
+        <!-- Content will be injected here by JavaScript -->
+    </main>
+
+    <!-- Footer Decoration -->
+    <footer class="fixed bottom-0 left-0 right-0 h-16 bg-[#9bc99e]/10 pointer-events-none z-0">
+        <div class="flex justify-around items-end h-full overflow-hidden">
+            <div class="w-16 h-20 bg-[#9bc99e]/20 rounded-t-full translate-y-4"></div>
+            <div class="w-16 h-24 bg-[#9bc99e]/20 rounded-t-full translate-y-4"></div>
+            <div class="w-16 h-16 bg-[#9bc99e]/20 rounded-t-full translate-y-4"></div>
+            <div class="w-16 h-28 bg-[#9bc99e]/20 rounded-t-full translate-y-4"></div>
+            <div class="w-16 h-20 bg-[#9bc99e]/20 rounded-t-full translate-y-4"></div>
+        </div>
+    </footer>
+
+    <script>
+        const STEPS = [
+            {
+                id: 0,
+                title: "My Beloved Kaye.",
+                message: "Hi love! Grabe monthsary ta ba tingob ya sa pila ka occasion man😭, but nonetheless I made a little something para simo:))",
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
+                button: "Ano nii? ✨"
+            },
+            {
+                id: 1,
+                title: "My Beloved Kaye.",
+                message: "I made this little digital garden for you since it's your birthday, Valentine's, and our monthsary all at once. Three reasons to celebrate the most beautiful girl in the world.",
+                image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1000&q=80",
+                button: "Walk with me... 🍃"
+            },
+            {
+                id: 2,
+                title: "My Beloved Kaye.",
+                message: "In just one month, you've turned my world into my favorite K-Drama scene. Even on the rainy days, you are the light that clears the sky. (Latibay corny ba, but it's true! lol) 🌊",
+                image: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1000&q=80",
+                button: "Yieee ❤️"
+            },
+            {
+                id: 3,
+                title: "My Beloved Kaye.",
+                message: "Every day, I find more reasons to fall for you. I want to learn every tiny detail, every silent thought, until you are my 'kabisado' forever. Like a peaceful dream, you're where I want to stay. 🧸",
+                image: "https://w0.peakpx.com/wallpaper/777/227/HD-wallpaper-my-neighbor-totoro-landscape-studio-ghibli.jpg",
+                button: "Just one more thing... ☁️"
+            },
+            {
+                id: 4,
+                title: "The Surprise Awaits...",
+                message: "Sa ulihi dason may gamay ko nga surprise para simo loveeee. Are you ready for it? 🎁",
+                image: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1000&q=80",
+                button: "Open the surprise! ✨"
+            }
+        ];
+
+        const ASCII_HEART = `
+         ******       ******
+       **********   **********
+     ************* *************
+    *****************************
+    *****************************
+    *****************************
+     ***************************
+       ***********************
+         *******************
+           ***************
+             ***********
+               *******
+                 ***
+                  *
+`;
+
+        const FINAL_MESSAGE = "Hi! Happy Birthday and 1st Monthsary my love, although I am sad that we could not be together on this day, just know that my heart remains forever yours. The moment we first spoke, I just knew that I wanted to spend the rest of my life with you. Thank you for being the kindest, most understanding girlfriend in the world. I look forward to building a future with you love, I love you.:))";
+
+        let currentStepIndex = 0;
+        let isFinalRevealed = false;
+
+        const container = document.getElementById('app-container');
+
+        function render() {
+            // Apply a quick fade out effect
+            container.classList.remove('fade-in');
+            void container.offsetWidth; // Trigger reflow
+            container.classList.add('fade-in');
+
+            if (!isFinalRevealed) {
+                const step = STEPS[currentStepIndex];
+                container.innerHTML = `
+                    <div class="space-y-8 text-center">
+                        <h1 class="text-4xl md:text-5xl font-header text-cottage-wood mb-4">${step.title}</h1>
+                        
+                        <div class="relative group">
+                            <div class="absolute -inset-2 bg-gradient-to-r from-cottage-teal via-cottage-peach to-cottage-green rounded-2xl blur opacity-30"></div>
+                            <div class="relative aspect-video rounded-xl overflow-hidden border-8 border-white shadow-inner bg-cottage-cream">
+                                <img src="${step.image}" alt="Memory" class="w-full h-full object-cover grayscale-[10%] group-hover:scale-105 transition-transform duration-700">
+                            </div>
+                        </div>
+
+                        <p class="text-xl md:text-2xl leading-relaxed font-body min-h-[80px]">
+                            ${step.message}
+                        </p>
+
+                        <button onclick="nextStep()" class="bg-cottage-peach hover:bg-[#ffb3a1] text-[#5a4632] font-header px-10 py-3 rounded-full text-2xl transition-all hover:scale-105 active:scale-95 shadow-lg border-b-4 border-cottage-wood">
+                            ${step.button}
+                        </button>
+                        
+                        <div class="pt-4 flex justify-center space-x-2">
+                            ${STEPS.map((_, i) => `<div class="h-2 rounded-full transition-all duration-500 ${currentStepIndex === i ? 'w-8 bg-cottage-peach' : 'w-2 bg-[#d1c6ad]'}"></div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Final Surprise
+                container.innerHTML = `
+                    <div class="space-y-8 flex flex-col items-center">
+                        <h1 class="text-5xl md:text-6xl font-header text-cottage-peach text-center animate-pulse">
+                            My Whole Heart
+                        </h1>
+                        
+                        <div class="py-4">
+                            <div class="ascii-heart text-[6px] sm:text-[10px] md:text-xs lg:text-sm">
+                                ${ASCII_HEART}
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 p-6 md:p-10 rounded-2xl border-2 border-dashed border-cottage-peach shadow-sm relative overflow-hidden mt-4">
+                            <!-- Decorative corners -->
+                            <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-cottage-green -translate-x-1 -translate-y-1"></div>
+                            <div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-cottage-green translate-x-1 -translate-y-1"></div>
+                            <div class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-cottage-green -translate-x-1 translate-y-1"></div>
+                            <div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-cottage-green translate-x-1 translate-y-1"></div>
+
+                            <p class="text-xl md:text-2xl leading-relaxed text-center italic font-body">
+                                ${FINAL_MESSAGE}
+                            </p>
+                            
+                            <div class="mt-8 flex flex-col items-center space-y-2">
+                                <span class="text-cottage-wood">Forever yours,</span>
+                                <span class="text-3xl font-header text-cottage-peach">Your One and Only</span>
+                            </div>
+                        </div>
+
+                        <button onclick="reset()" class="text-cottage-wood hover:text-cottage-peach transition-colors font-body text-lg border-b border-transparent hover:border-cottage-peach mt-4">
+                            Relive the moments
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        window.nextStep = function() {
+            if (currentStepIndex < STEPS.length - 1) {
+                currentStepIndex++;
+            } else {
+                isFinalRevealed = true;
+            }
+            render();
+        }
+
+        window.reset = function() {
+            currentStepIndex = 0;
+            isFinalRevealed = false;
+            render();
+        }
+
+        // Initial render
+        render();
+    </script>
+</body>
 </html>
